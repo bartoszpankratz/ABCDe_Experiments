@@ -15,7 +15,7 @@ Notebooks are created in Julia 1.7.0 with following packages:
 
 ### Datasets
 
-Three datasets are provided with notebooks:
+Four datasets are provided with notebooks:
 - [coms_and_degs](https://drive.google.com/file/d/1u1YibNJRwp1LBCL0KEpCY1qqFdM8sP-v/view?usp=sharing) - community and degree distribution files used in the experiments.
 - [speed_test](https://drive.google.com/file/d/1MfPL8JOWObJmlvdErOCGsd65zENlJqwe/view?usp=sharing) - data and logfiles for speed benchmark.
 - [properties_test](https://drive.google.com/file/d/1IIFcSdkmf4GVAbouW1BPq-fCJ-BJO5DK/view?usp=sharing) - data and logfiles for properties testing.
