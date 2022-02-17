@@ -20,7 +20,7 @@ mu = float(sys.argv[9])
 xi = float(sys.argv[10])
 res_dir = sys.argv[11]
 
-logname = "logs/LFR_" + str(threads) + "_" str(n) + "_" + str(xi) + "_" + str(beta) + "_" + str(gamma) + "_" + str(min_deg) + ".log"
+logname = "logs/LFR_" + str(threads) + "_" + str(n) + "_" + str(xi) + "_" + str(beta) + "_" + str(gamma) + "_" + str(min_deg) + ".log"
 LFRname = res_dir + "/LFR_" + str(threads) + "_" + str(n) + "_" + str(xi) + "_" + str(beta) + "_"  + str(gamma) + "_" + str(min_deg) + ".dat"
 
 if os.path.isfile(LFRname) or os.path.isfile(logname):
