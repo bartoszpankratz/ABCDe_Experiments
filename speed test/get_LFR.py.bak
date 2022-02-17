@@ -52,7 +52,7 @@ try:
     lfrG = lfr.generate()
     time = timer() - start
     n_edges = lfrG.numberOfEdges()
-    res = [n, xi, mu, beta, gamma, min_deg, E_deg, n_edges, "NaN", threads, time]
+    res = [n, xi, mu, beta, gamma, min_deg, E_deg, n_edges, "NaN", 1, time]
     with open(LFRname, 'w') as f:
         for r in res:
             print(r, file = f)

@@ -73,6 +73,10 @@ for (n, ξ, β, γ, min_deg) in params
     #approximate μ:
     μ = approx_mu(coms, min_deg, max_deg, γ, ξ)
     
+    #LFR algorithm:
+    n <= 10^8 && run(`python get_LFR.py $n $γ $min_deg $E_deg $deg_filename $β $com_filename 
+        $μ $ξ $res_dir $seed`)
+    @info "LFR: $n $γ $min_deg $μ $ξ done!"
     
     for islocal in is_local
         #ABCD algorithm:
@@ -80,21 +84,13 @@ for (n, ξ, β, γ, min_deg) in params
             $n $γ $min_deg $E_deg $deg_filename $β $com_filename 
             $μ $ξ $isCL $islocal $res_dir $seed`)
         @info "ABCD: $n $γ $min_deg $μ $ξ $islocal done!"
-    end
-	
-    for t in threads
-		#ABCDe algorithm:
-		for islocal in is_local
+        #ABCDe algorithm:
+        for t in threads
             run(`julia --threads $t get_ABCDe.jl 
                 $n $γ $min_deg $E_deg $deg_filename $β $com_filename 
                 $μ $ξ $isCL $islocal $res_dir $seed`)
             @info "ABCDe: $t $n $γ $min_deg $μ $ξ $islocal done!"
         end
-		
-		#LFR algorithm:
-		n <= 10^8 && run(`python get_LFR.py $t $n $γ $min_deg $E_deg $deg_filename $β $com_filename 
-			$μ $ξ $res_dir $seed`)
-		@info "LFR: $t $n $γ $min_deg $μ $ξ done!"
-	end
+    end
 end
 @info "Experiment done!"
