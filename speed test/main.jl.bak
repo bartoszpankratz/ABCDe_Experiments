@@ -57,17 +57,17 @@ for (n, ξ, β, γ, min_deg) in params
     #sample degree sequence:
     deg_filename = "degs/deg_$(n)_$(min_deg)_$(max_deg)_$(γ).dat"
     if !isfile(deg_filename)
-        degs = ABCDGraphGenerator.sample_degrees(γ, min_deg, max_deg, n, max_iter)
-        open(io -> foreach(d -> println(io, d), degs), deg_filename, "w")
+    	degs = ABCDGraphGenerator.sample_degrees(γ, min_deg, max_deg, n, max_iter)
+    	open(io -> foreach(d -> println(io, d), degs), deg_filename, "w")
     end
     
     #sample communities:
     com_filename = "coms/com_$(n)_$(c_min)_$(c_max)_$(β).dat"
     if !isfile(com_filename)
-        coms = ABCDGraphGenerator.sample_communities(β, c_min, c_max, n, max_iter)
-        open(io -> foreach(d -> println(io, d), coms), com_filename, "w")
+    	coms = ABCDGraphGenerator.sample_communities(β, c_min, c_max, n, max_iter)
+    	open(io -> foreach(d -> println(io, d), coms), com_filename, "w")
     else
-        coms = parse.(Int,readlines(com_filename))
+    	coms = parse.(Int,readlines(com_filename))
     end
 
     #approximate μ:
@@ -81,21 +81,20 @@ for (n, ξ, β, γ, min_deg) in params
             $μ $ξ $isCL $islocal $res_dir $seed`)
         @info "ABCD: $n $γ $min_deg $μ $ξ $islocal done!"
     end
-
+	
     for t in threads
-        #ABCDe algorithm:
-        for islocal in is_local
+		#ABCDe algorithm:
+		for islocal in is_local
             run(`julia --threads $t get_ABCDe.jl 
                 $n $γ $min_deg $E_deg $deg_filename $β $com_filename 
                 $μ $ξ $isCL $islocal $res_dir $seed`)
             @info "ABCDe: $t $n $γ $min_deg $μ $ξ $islocal done!"
         end
-
-        #LFR algorithm:
-        n <= 10^8 && run(`python get_LFR.py $t $n $γ $min_deg $E_deg $deg_filename $β $com_filename 
-            $μ $ξ $res_dir $seed`)
-        @info "LFR: $t $n $γ $min_deg $μ $ξ done!"
-    end
+		
+		#LFR algorithm:
+		n <= 10^8 && run(`python get_LFR.py $t $n $γ $min_deg $E_deg $deg_filename $β $com_filename 
+			$μ $ξ $res_dir $seed`)
+		@info "LFR: $t $n $γ $min_deg $μ $ξ done!"
+	end
 end
 @info "Experiment done!"
-
